@@ -10,18 +10,16 @@ Please note that this library is under active development and the APIs may chang
 ## Installation
 Use NPM to install the module in your project and build using a tool like webpack or browserify.
 
-```
+```Shell
 npm install react-bootstrap-typeahead
 ```
-
-Make sure you have the appropriate CSS loaders ([see notes below](#css)).
 
 To generate UMD modules, both minified and unminified, download the project and run `npm run build`.
 
 ## Usage
-`react-bootstrap-typeahead` works very much like any standard `input` element. It requires an array of options to display, similar to a `select`. 
+`react-bootstrap-typeahead` works very much like any standard `input` element. It requires an array of options to display, similar to a `select`.
 
-```
+```JSX
 var Typeahead = require('react-bootstrap-typeahead');
 
 <Typeahead
@@ -33,7 +31,7 @@ var Typeahead = require('react-bootstrap-typeahead');
 ### Single & Multi-Selection
 `react-bootstrap-typeahead` allows single-selection by default, but also supports multi-selection. Simply set the `multiple` prop and the component turns into a tokenizer:
 
-```
+```JSX
 <Typeahead
   multiple
   onChange={this._handleChange}
@@ -44,7 +42,7 @@ var Typeahead = require('react-bootstrap-typeahead');
 ### Controlled vs. Uncontrolled
 Like an `input`, the component can be controlled or uncontrolled. Use the `selected` prop to control it via the parent, or `defaultSelected` to optionally set defaults and then allow the component to control itself.
 
-```
+```JSX
 <Typeahead
   onChange={this._handleChange}
   options={myData}
@@ -55,7 +53,7 @@ Like an `input`, the component can be controlled or uncontrolled. Use the `selec
 ## Data
 `react-bootstrap-typeahead` has some expectations about the shape of your data. It expects an array of objects, each of which should have a string property to be used as the label for display. By default, the key is named `label`, but you can specify a different key via the `labelKey` prop.
 
-```
+```JSX
 var myData = [
   {id: 1, name: 'John'},
   {id: 2, name: 'Miles'},
@@ -77,7 +75,7 @@ As far as the source of the data, the component simply handles rendering and sel
 
 ### `renderMenuItemChildren`
 Allows you to control the contents of a menu item. Your function will be passed the `TypeaheadMenu` props, an individual option from your data list, and the index:
-```
+```JSX
 <Typeahead
   options={options}
   renderMenuItemChildren={(props, option, idx) => {
@@ -87,9 +85,73 @@ Allows you to control the contents of a menu item. Your function will be passed 
 ```
 
 ## CSS
-The component tries to use as little CSS as possible, relying primarily on Bootstrap or any Bootstrap themes for styling. There is a small amount, which is bundled with the JS files.
+You could use the following CSS (being used in the example) to style this component:
+```CSS
+/* Token */
+.bootstrap-tokenizer .token {
+  background-color: #e7f4ff;
+  border: 0;
+  border-radius: 2px;
+  color: #1f8dd6;
+  display: inline-block;
+  line-height: 1em;
+  margin: 0 3px 3px 0;
+  padding: 4px 7px;
+  position: relative;
+}
+.bootstrap-tokenizer .token-removeable {
+  cursor: pointer;
+  padding-right: 21px;
+}
+.bootstrap-tokenizer .token-selected {
+  background-color: #1f8dd6;
+  color: #fff;
+  outline: none;
+  text-decoration: none;
+}
 
-Browserify users will need to use [browserify-css](https://www.npmjs.com/package/browserify-css) (or something similar) to handle the CSS bundling, while Webpack user will need to use [css-loader](https://www.npmjs.com/package/css-loader) and/or [style-loader](https://www.npmjs.com/package/style-loader) in their webpack config file.
+.bootstrap-tokenizer .token .close-button {
+  bottom: 0;
+  padding: 3px 7px;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.bootstrap-typeahead .dropdown-menu {
+  overflow: auto;
+}
+.bootstrap-typeahead .dropdown-menu > li a {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.bootstrap-typeahead .dropdown-menu > li a:focus {
+  outline: none;
+}
+
+.bootstrap-typeahead .dropdown-menu-justify {
+  right: 0;
+}
+
+.bootstrap-typeahead-input-hint {
+  color: #aaa;
+}
+
+.bootstrap-typeahead-menu-paginator {
+  text-align: center;
+}
+
+.bootstrap-tokenizer {
+  cursor: text;
+  height: auto;
+  padding: 5px 12px 2px 12px;
+}
+
+.bootstrap-tokenizer-input {
+  margin: 1px 0 4px;
+}
+
+```
 
 ## Example
 An example file is included with the NPM module. Simply open `example/index.html` in a browser. If you're using the repository code, you'll need to run `npm run example` to build the example index file. You can then open the HTML file as described above. You can also try the [live example](http://ericgio.github.io/react-bootstrap-typeahead/).
